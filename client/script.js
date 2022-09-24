@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////
 //THE TEST SERVER IS RUNNING ON LOCALHOST:3000//
 ////////////////////////////////////////////////
-
+// console.log('hello world')
 // PROBLEM 1
 /*
     In the index.html file in this folder there is a button with an id of 'say-hello-button'!
@@ -10,7 +10,8 @@
 */
 
 // CODE HERE
-
+const sayHelloButton = document.querySelector('#say-hello-button')
+// console.log(sayHelloButton)
 
 // PROBLEM 2
 /*
@@ -19,8 +20,11 @@
     Attach a mouseover event to sayHelloButton that calls the function you wrote
 */
 
-// CODE HERE
-
+function btnColorChanger(){
+    sayHelloButton.style.backgroundColor = "black";
+    sayHelloButton.style.color = "white";
+}
+sayHelloButton.addEventListener('mouseover', btnColorChanger)
 
 // PROBLEM 3
 /*
@@ -31,7 +35,12 @@
     Attach another listener that fires your second function when the mouseout event occurs on the button
 */
 
-// CODE HERE
+function resetBtnColor(){
+    sayHelloButton.style.backgroundColor = "#EFEFEF";
+    sayHelloButton.style.color = "black"
+}
+
+sayHelloButton.addEventListener('mouseout', resetBtnColor)
 
 
 // PROBLEM 4
@@ -52,7 +61,7 @@ const sayHello = () => {
 }
 // DO NOT EDIT FUNCTION
 
-// CODE HERE
+sayHelloButton.addEventListener('click', sayHello)
 
 
 // PROBLEM 5 
@@ -67,7 +76,11 @@ const sayHello = () => {
 */ 
 
 const ohMy = () => {
-    // YOUR CODE HERE
+    axios
+        .get('http://localhost:3000/animals')
+        .then( res => {
+            console.log(res.data)
+        })
 }
 
 document.getElementById('animals-button').addEventListener('click', ohMy)
@@ -87,8 +100,20 @@ document.getElementById('animals-button').addEventListener('click', ohMy)
 */
 
 const repeatMyParam = () => {
-    //YOUR CODE HERE
+    axios
+        .get('http://localhost:3000/repeat/animals')
+        .then( res => {
+            console.log(res.data)
+
+            let repeatTextEl = document.getElementById('repeat-text');
+            repeatTextEl.textContent = res.data;
+            repeatTextEl.style.display = 'block';
+        })
+
 }
+
+document.getElementById('repeat-button').addEventListener('click', repeatMyParam)
+
 
 // PROBLEM 7
 /*
@@ -112,8 +137,14 @@ const repeatMyParam = () => {
     Outside of your new function, select the button with the id "query-button" and add a click event listener that calls your function.
 */
 
-// CODE HERE
-
+const requestQuery = () => {
+    axios
+        .get('http://localhost:3000/query-test/?animals=cat')
+        .then(res => {
+            console.log(res.data)
+        })
+}
+document.getElementById('query-button').addEventListener('click', requestQuery)
 
 
 ////////////////
